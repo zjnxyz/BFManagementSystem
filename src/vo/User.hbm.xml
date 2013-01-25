@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="vo.User" table="users">
+		<id name="id" type="java.lang.Integer" column="id">
+			<generator class="native"></generator>
+		</id>
+
+		<property name="username" type="string" />
+		
+		<property name="password" type="string"/>
+		
+		<property name="level" type="int" />
+
+        <set name="payments" inverse="true" >
+           <key column="userId"></key>
+           <one-to-many class="vo.Payment"/>
+        </set>
+        
+        <set name="expenditures" inverse="true" >
+           <key column="userId"></key>
+           <one-to-many class="vo.Expenditure"/>
+        </set>
+	</class>
+</hibernate-mapping>

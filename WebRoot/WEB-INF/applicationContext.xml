@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/dormitory"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="root"></property>
+	<property name="maxActive" value="100"></property>
+	<property name="maxIdle" value="30"></property>
+	<property name="maxWait" value="500"></property>
+	<property name="defaultAutoCommit" value="true"></property>
+</bean>
+
+<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<property name="hibernateProperties">
+		<props>
+			<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.hbm2ddl.auto">update</prop>
+		</props>
+	</property>
+	<property name="mappingResources">
+		<list>
+			<value>vo/User.hbm.xml</value>
+			<value>vo/Payment.hbm.xml</value>
+			<value>vo/Expenditure.hbm.xml</value>
+		</list>
+	</property>
+	
+</bean>
+
+    <!-- DAO -->
+    
+    <bean name="expenditureDao" class="dao.impl.ExpenditureDaoImpl">
+       <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean name="paymentDao" class="dao.impl.PaymentDaoImpl">
+       <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <bean name="userDao" class="dao.impl.UserDaoImpl">
+       <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+   <!-- SERVICE -->
+   
+   <bean name="expenditureService" class="service.impl.ExpenditureServiceImpl">
+     <property name="expenditureDao" ref="expenditureDao"></property>
+     
+   </bean>
+
+   <bean name="paymentService" class="service.impl.PaymentServiceImpl">
+     <property name="paymentDao" ref="paymentDao"></property>
+   </bean>
+
+   <bean name="userService" class="service.impl.UserServiceImpl">
+       <property name="userDao" ref="userDao"></property>
+   </bean>
+   
+     <!-- Action -->
+     
+   <bean name="userAction" class="action.UserAction">
+      <property name="userService" ref="userService"></property>
+   </bean>
+   
+   <bean name="loginOutAction" class="action.LoginOutAction"></bean>
+  
+  <bean name="excpenditureAction" class="action.ExcpenditureAction">
+     <property name="expenditureService" ref="expenditureService"></property>
+     <property name="paymentService" ref="paymentService"></property>
+     <property name="userService" ref="userService"></property>
+     <property name="currentPage" value="1"/>
+     <property name="pageLength" value="6"/>
+     <property name="order" value=""/>
+  </bean>
+ 
+ <bean name="paymentAction" class="action.PaymentAction">
+    <property name="paymentService" ref="paymentService"></property>
+    <property name="userService" ref="userService"></property>
+ </bean>
+ 
+ <bean name="savePaymentAction" class="action.SavePaymentAction">
+       <property name="paymentService" ref="paymentService"></property>
+       <property name="userService" ref="userService"></property>
+ </bean>
+ 
+ <bean name="findNamePaymentAction" class="action.FindNamePaymentAction">
+       <property name="paymentService" ref="paymentService"></property>
+       <property name="currentPage" value="1"/>
+       <property name="pageLength" value="6"/>
+       <property name="order" value=""/>
+ </bean>
+
+<bean name="searchPaymentAction" class="action.SarchPaymentAction">
+     <property name="paymentService" ref="paymentService"></property>
+     <property name="currentPage" value="1"/>
+     <property name="pageLength" value="6"/>
+     <property name="order" value=""/>
+</bean>
+
+<bean name="userSaveAction" class="action.UserSaveAction">
+    <property name="userService" ref="userService"></property>
+</bean>
+</beans>

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	font-family:Verdana, Geneva, sans-serif;
+	background-image: url(bg-0184.gif);
+	margin:0;
+	padding:0;
+}
+
+header{
+	height:100px;
+	background-color:#0FF;
+}
+
+#content{
+	width:80%;
+	height:600px;
+	border: solid #63C 5px ;
+	
+	background-color:#ccc;
+	margin: 20px auto;
+}
+
+#aside{
+	
+	width:200px;
+	background-color:#ccc;
+	float:left;
+}
+
+
+#mainContent{
+	background-color:#FFF;
+	padding:0 20px 0 1em;
+}
+
+#footer{
+	height:100px;
+	background-color:#DDDDDD;
+	text-align:center;
+	float:.8em;
+}
+
+
+

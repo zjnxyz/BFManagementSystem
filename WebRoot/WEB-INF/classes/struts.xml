@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="qinshi" extends="struts-default">
+	
+	  <interceptors>
+	     <interceptor name="myInterceptor" class="interceptor.MyInterceptor" />
+	     <interceptor-stack name="user">
+	        <interceptor-ref name="myInterceptor"></interceptor-ref>
+	        <interceptor-ref name="defaultStack"></interceptor-ref>
+	     </interceptor-stack>
+	  </interceptors>
+	  
+	    <!--全局result-->
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+        </global-results>
+	
+		 <action name="login" class="userAction" >
+           <result name="main">/main.jsp</result>
+           <result name="index">/index.jsp</result>
+           <result name="input">/login.jsp</result>
+         </action>
+         
+         <action name="loginOut" class="loginOutAction">
+             <result>/login.jsp</result>
+             <interceptor-ref name="user" />
+         </action>
+         
+         <action name="expenditure_*" class="excpenditureAction" method="{1}">
+            <result name="saveExpenditure" type="redirectAction">expenditure_getAllExpenditure</result>
+            <result name="getAll2Expenditure">/indexCentent.jsp</result>
+            <result name="getAll1Expenditure">/mainCentent.jsp</result>
+            <result name="search1Expenditure">/search1Success.jsp</result>
+            <result name="search2Expenditure">/search2Success.jsp</result>
+            <result name="addBuy">/addBuy.jsp</result>
+            <interceptor-ref name="user" />
+         </action>
+         
+         <action name="payment_*" class="paymentAction">
+           <result name="savePayment">/mainCentent.jsp</result>
+           <result name="findName">/searchHandSuccess.jsp</result>
+           <result name="save">/successX.jsp</result>
+           <interceptor-ref name="user" />
+         </action>
+         
+         <action name="savePayment" class="savePaymentAction">
+           <result type="redirectAction">expenditure_getAllExpenditure</result>
+           <interceptor-ref name="user" />
+         </action>
+         
+         <action name="findNamePayment" class="findNamePaymentAction">
+            <result>/searchHandSuccess.jsp</result>
+            <interceptor-ref name="user" />
+         </action>
+         
+         <action name="searchPayment" class="searchPaymentAction">
+           <result name="mainPayment">/mainHand.jsp</result>
+           <result name="indexPayment">/indexHand.jsp</result>
+           <interceptor-ref name="user" />
+         </action>
+         
+         <action name="userSave" class="userSaveAction">
+            <result>/successX.jsp</result>
+            <interceptor-ref name="user" />
+         </action>
+        
+        <action name="addBuy">
+           <result>/addBuy.jsp</result>
+           <interceptor-ref name="user" />
+        </action>
+        
+        <action name="addHand">
+          <result>/addHand.jsp</result>
+          <interceptor-ref name="user" />
+        </action>
+        <action name="search2">
+           <result>/search2.jsp</result>
+           <interceptor-ref name="user" />
+        </action>
+        
+         <action name="search1">
+           <result>/search1.jsp</result>
+           <interceptor-ref name="user" />
+        </action>
+        
+        <action name="searchHand">
+           <result>/searchHand.jsp</result>
+        </action>
+        
+        <action name="main">
+           <result>/main.jsp</result>
+           <interceptor-ref name="user" />
+        </action>
+        
+        <action name="index">
+           <result>/index.jsp</result>
+           <interceptor-ref name="user" />
+        </action>
+        
+	</package>
+</struts>

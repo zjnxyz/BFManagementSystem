@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="qinshi6_yh1"
+  id="myeclipse.1315705540722"
+  context-root="/ssh2"
+  j2ee-spec="5.0"
+  archive="qinshi6_yh1.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
